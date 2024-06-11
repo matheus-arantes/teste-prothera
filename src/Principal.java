@@ -1,4 +1,5 @@
 import entity.Funcionario;
+import entity.Pessoa;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -24,17 +25,17 @@ public class Principal {
             new Funcionario("Helena", LocalDate.of(1996, 9, 2), new BigDecimal("2799.93"), "Gerente")
     ));
 
-    // 3.2 Remove o funcionário “João” da lista.
+    // 3.2 Remove o funcionário João da lista.
     funcionarios.removeIf(f -> f.getNome().equals("João"));
 
     // 3.3 Imprime todos os funcionários
     System.out.println("Todos os funcionários:");
     funcionarios.forEach(System.out::println);
 
-    // 3.4 Aumenta o salário em 10%
+    // 3.4 Aumenta o salário de todos os funcionários em 10%
     funcionarios.forEach(f -> f.aumentarSalario(new BigDecimal("0.10")));
 
-    // 3.5 Agrupa os funcionários por função
+    // 3.5 Agrupa os funcionários por função utilizando um MAP
     Map<String, List<Funcionario>> funcionariosPorFuncao = funcionarios.stream()
             .collect(Collectors.groupingBy(Funcionario::getFuncao));
 
@@ -52,7 +53,7 @@ public class Principal {
             .forEach(System.out::println);
 
     // 3.9 Imprime o funcionário com maior idade
-    Funcionario maisVelho = Collections.max(funcionarios, Comparator.comparing(f -> f.getDataNascimento()));
+    Funcionario maisVelho = Collections.max(funcionarios, Comparator.comparing(Pessoa::getDataNascimento));
     int idadeMaisVelho = LocalDate.now().getYear() - maisVelho.getDataNascimento().getYear();
     System.out.println("\n\nFuncionário com maior idade:\n " + maisVelho.getNome() + ", Idade: " + idadeMaisVelho);
 
